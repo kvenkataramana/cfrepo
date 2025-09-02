@@ -1,0 +1,36 @@
+name: Deplpy Cloudformation stack
+on:
+  push:
+    branches:
+      - main
+env:
+  STACK_NAME: my-cf-stack
+  REGION: us-west-2
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name:  Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID  }}
+          aws-secrete-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
+          aws-region: ${{ env.REGION }}
+
+      - name: Install AWS CLI
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y awscli
+
+      - name: Deploy CFN stack
+        run: |
+             aws cloudformation deploy \
+             --template-file env.yaml
+             -- stack-name ${{ env.STACK_NAME }}
+             --no-fail-on-empty-changeset
+             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
