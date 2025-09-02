@@ -32,6 +32,6 @@ jobs:
         run: |
              aws cloudformation deploy \
              --template-file env.yaml
-             -- stack-name ${{ env.STACK_NAME }}
+             --stack-name ${{ env.STACK_NAME }}
              --no-fail-on-empty-changeset
-             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM 
