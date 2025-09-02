@@ -31,7 +31,7 @@ jobs:
       - name: Deploy CFN stack
         run: |
              aws cloudformation deploy \
-             --template-file env.yaml
-             --stack-name ${{ env.STACK_NAME }}
-             --no-fail-on-empty-changeset
+             --template-file env.yaml \
+             --stack-name ${{ env.STACK_NAME }} \
+             --no-fail-on-empty-changeset \
              --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM 
