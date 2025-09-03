@@ -1,0 +1,40 @@
+name: Reusable workflow for cloudformation stack update
+on:
+  workflow_call:
+    inputs:
+      stack_name:
+        required: true
+        type: string
+      region:
+        required: true
+        type: string
+      template_file:
+        required: true
+        type: string
+    secrets:
+      aws_access_key_id:
+        requiried: true
+      aws_secret_access_key:
+       required: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key_id }}
+          aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+          aws-region: {{ inputs.region }}
+      - name: Deploy CFN stack
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: ${{ inputs.stack_name }}
+          template: ${{ inputs.template_name }}
+          no-fail-on-empty-changeset: 1
+          capabilities: CAPABILITY_IAM,CAPABILITY_NAMED_IAM
+
+    
+ 
