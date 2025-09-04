@@ -26,15 +26,14 @@ jobs:
         run: aws cloudformation validate-template --template-body file://env.yaml
 
   deploy:
-    runs-on: ubuntu-latest
+    uses: kvenkataramana/cfrepo/./github/workflows/aws-cfn.yml@main
     needs: validate
-    secrets:
-      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
     with:
       stack_name: ${{ env.STACK_NAME }}
       region: ${{ env.REGION }}
       template_file: env.yaml
-    uses: kvenkataramana/cfrepo/./github/workflows/aws-cfn.yml@main
+    secrets:
+      aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
