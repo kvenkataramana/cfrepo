@@ -37,7 +37,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           aws-region: ${{ env.REGION }}
       - name: Deploy CFN stack
-        uses: kvenkataramana/cfrepop/./github/workflows/aws-cfn.yml@main
+        uses: kvenkataramana/cfrepo/./github/workflows/aws-cfn.yml@main
         with:
           stack_name: ${{ env.STACK_NAME }}
           region: ${{ env.REGION }}
