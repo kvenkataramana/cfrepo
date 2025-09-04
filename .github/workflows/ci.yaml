@@ -28,7 +28,6 @@ jobs:
   deploy:
     uses: kvenkataramana/cfrepo/./github/workflows/aws-cfn.yml@main
     needs: validate
-      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
     with:
       stack_name: ${{ env.STACK_NAME }}
       region: ${{ env.REGION }}
