@@ -31,19 +31,10 @@ jobs:
     secrets:
       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID  }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
-          aws-region: ${{ env.REGION }}
-      - name: Deploy CFN stack
-        uses: kvenkataramana/cfrepo/./github/workflows/aws-cfn.yml@main
-        with:
-          stack_name: ${{ env.STACK_NAME }}
-          region: ${{ env.REGION }}
-          template_file: env.yaml
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
+    with:
+      stack_name: ${{ env.STACK_NAME }}
+      region: ${{ env.REGION }}
+      template_file: env.yaml
+    uses: kvenkataramana/cfrepo/./github/workflows/aws-cfn.yml@main
 
